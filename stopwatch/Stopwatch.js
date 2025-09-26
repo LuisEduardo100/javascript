@@ -20,7 +20,8 @@ class Stopwatch {
   static formatTime(elapsedTime) {
     const hours = Math.floor(elapsedTime / 3600);
     const minutes = Math.floor((elapsedTime % 3600) / 60);
-    const seconds = elapsedTime % 60;
+    // const seconds = elapsedTime % 60;
+    const seconds = elapsedTime - hours * 3600 - minutes * 60;
     return `${Stopwatch.zeroPadding(hours, 2)}:${Stopwatch.zeroPadding(
       minutes,
       2
