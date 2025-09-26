@@ -5,7 +5,7 @@ class Stopwatch {
   start() {
     this.intervalId = setInterval(() => {
       this.elapsedTime += 1;
-      console.log(`${Stopwatch.formatTime(this.elapsedTime)}`);
+      console.log(this.elapsedTimeFormatted);
     }, 1000);
   }
 
@@ -17,11 +17,15 @@ class Stopwatch {
     this.elapsedTime = 0;
   }
 
-  static formatTime(elapsedTime) {
-    const hours = Math.floor(elapsedTime / 3600);
-    const minutes = Math.floor((elapsedTime % 3600) / 60);
-    // const seconds = elapsedTime % 60;
-    const seconds = elapsedTime - hours * 3600 - minutes * 60;
+  get elapsedTimeFormatted() {
+    return Stopwatch.formatTime(this.elapsedTime);
+  }
+
+  static formatTime(timeInSeconds) {
+    const hours = Math.floor(timeInSeconds / 3600);
+    const minutes = Math.floor((timeInSeconds % 3600) / 60);
+    // const seconds = timeInSeconds % 60;
+    const seconds = timeInSeconds - hours * 3600 - minutes * 60;
     return `${Stopwatch.zeroPadding(hours, 2)}:${Stopwatch.zeroPadding(
       minutes,
       2
