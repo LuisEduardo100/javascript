@@ -1,24 +1,33 @@
 class Stopwatch {
-  elapsedTime = 0;
-  intervalId = null;
+  #elapsedTime = 0;
+  #intervalId = null;
+  #isRunning = false;
 
-  start() {
-    this.intervalId = setInterval(() => {
-      this.elapsedTime += 1;
-      console.log(this.elapsedTimeFormatted);
-    }, 1000);
+  start(callback = () => {}) {
+    if (!this.#isRunning) {
+      this.#intervalId = setInterval(() => {
+        this.#isRunning = true;
+        this.#elapsedTime += 1;
+        callback();
+      }, 1000);
+    }
   }
 
   stop() {
-    clearInterval(this.intervalId);
+    clearInterval(this.#intervalId);
   }
 
-  reset() {
-    this.elapsedTime = 0;
+  reset(callback = () => {}) {
+    this.#elapsedTime = 0;
+    callback();
   }
 
   get elapsedTimeFormatted() {
-    return Stopwatch.formatTime(this.elapsedTime);
+    return Stopwatch.formatTime(this.#elapsedTime);
+  }
+
+  get isRunning() {
+    return this.#isRunning;
   }
 
   static formatTime(timeInSeconds) {
@@ -49,17 +58,28 @@ class Stopwatch {
   }
 }
 
-let sw = new Stopwatch();
-sw.start();
+const startBtn = document.querySelector('.start');
+const stopBtn = document.querySelector('.stop');
+const resetBtn = document.querySelector('.reset');
 
-setTimeout(() => {
-  sw.stop();
-  console.log(
-    'After stopped: ' + 'Seconds passed ' + Stopwatch.formatTime(sw.elapsedTime)
-  );
-}, 5000);
+const stopwatchDisplay = document.querySelector('.stopwatch-display');
+const sw1 = new Stopwatch();
 
-setTimeout(() => {
-  sw.reset();
-  console.log('After reset: ' + Stopwatch.formatTime(sw.elapsedTime));
-}, 8000);
+function updateDisplay() {
+  stopwatchDisplay.innerText = sw1.elapsedTimeFormatted;
+}
+
+startBtn.addEventListener('click', () => {
+  if (!sw1.isRunning) {
+    startBtn.classList.add('disabled');
+  }
+  sw1.start(updateDisplay);
+});
+
+stopBtn.addEventListener('click', () => {
+  sw1.stop();
+});
+
+resetBtn.addEventListener('click', () => {
+  sw1.reset(updateDisplay);
+});
