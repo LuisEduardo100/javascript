@@ -29,6 +29,7 @@ class Item {
 
   applyOffer(discount) {
     this.price -= this.price * (discount / 100);
+    // this.price * ((100 - discount) / 100);
     return 'R$' + this.price.toFixed(2);
   }
 }
