@@ -20,9 +20,15 @@ S2.enrollIn(courseRuby);
 S2.enrollIn(courseJS);
 S3.enrollIn(courseRuby);
 
-console.log(S1);
-console.log(S2);
-console.log(S3);
+// console.log(S1);
+// console.log(S2);
+// console.log(S3);
 
-console.log(courseJS);
-console.log(courseRuby);
+// console.log(courseJS);
+// console.log(courseRuby);
+
+// console.log(`Cursos de ${S1.name}: ${S1.showCourses()}`);
+// console.log(`Alunos do curso ${courseJS.name}: ${courseJS.showStudents()}`);
+
+console.log(`Cursos de ${S1.name}: `, S1.showCourses());
+console.log(`Alunos do curso ${courseJS.name}: ${courseJS.showStudents()}`);

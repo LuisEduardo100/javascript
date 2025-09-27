@@ -8,4 +8,8 @@ export default class Student {
     this.courses.push(course);
     course.addStudent(this);
   }
+
+  showCourses() {
+    return this.courses.map((c) => c.name);
+  }
 }
