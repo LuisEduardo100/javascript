@@ -15,6 +15,7 @@ class Stopwatch {
 
   stop() {
     clearInterval(this.#intervalId);
+    this.#isRunning = false;
   }
 
   reset(callback = () => {}) {
@@ -81,5 +82,10 @@ stopBtn.addEventListener('click', () => {
 });
 
 resetBtn.addEventListener('click', () => {
-  sw1.reset(updateDisplay);
+  if (sw1.isRunning) {
+    sw1.reset(updateDisplay);
+  } else {
+    sw1.reset(updateDisplay);
+    startBtn.classList.remove('disabled');
+  }
 });
